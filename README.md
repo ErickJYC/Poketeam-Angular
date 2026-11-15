@@ -88,18 +88,13 @@ https://github.com/ErickJYC/Poketeam-Angular
 
 ## Aplicación desplegada
 
-Pendiente de publicar en Vercel.
+PokéTeam está disponible públicamente en Vercel:
+
+https://poketeam-angular.vercel.app
 
 ## API utilizada
 
 https://pokeapi.co/
-
-
-## Aplicación desplegada
-
-PokéTeam está disponible públicamente en Vercel:
-
-https://poketeam-angular.vercel.app
 
 
 ## Proyecto académico
