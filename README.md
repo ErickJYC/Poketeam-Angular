@@ -94,6 +94,14 @@ Pendiente de publicar en Vercel.
 
 https://pokeapi.co/
 
+
+## Aplicación desplegada
+
+PokéTeam está disponible públicamente en Vercel:
+
+https://poketeam-angular.vercel.app
+
+
 ## Proyecto académico
 
 Práctica 02 - Programación y Plataformas Web.
