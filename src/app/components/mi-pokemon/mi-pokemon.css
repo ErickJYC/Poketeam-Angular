@@ -1,0 +1,342 @@
+
+/* CONTENEDOR PRINCIPAL */
+
+.contenedor-pokemon {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 25px;
+  text-align: center;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000020;
+}
+
+/* FORMULARIO DE BÚSQUEDA */
+
+form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* TARJETA DEL POKÉMON */
+
+.tarjeta-pokemon {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+}
+
+.tarjeta-pokemon img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+/* INFORMACIÓN DE TIPOS */
+
+.informacion-tipos {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000020;
+}
+
+.detalle-tipo {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #eff6ff;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.detalle-tipo h4 {
+  color: #1d4ed8;
+  text-transform: capitalize;
+}
+
+/* INFORMACIÓN DE HABILIDADES */
+
+.informacion-habilidades {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000020;
+}
+
+.detalle-habilidad {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f0fdf4;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.detalle-habilidad h4 {
+  color: #15803d;
+  text-transform: capitalize;
+}
+
+/* MENSAJES DE ERROR */
+
+.error {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* DISEÑO PARA CELULARES */
+
+@media (max-width: 600px) {
+  .contenedor-pokemon,
+  .informacion-tipos,
+  .informacion-habilidades {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+
+/* DISTRIBUCIÓN DEL EQUIPO POKÉMON */
+
+.lista-equipo {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.lista-equipo .tarjeta-pokemon {
+  margin-top: 0;
+  padding: 15px 10px;
+  min-width: 0;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.lista-equipo .tarjeta-pokemon h3 {
+  text-transform: capitalize;
+  overflow-wrap: anywhere;
+}
+
+.lista-equipo .tarjeta-pokemon img {
+  width: 100px;
+  height: 100px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.lista-equipo .tarjeta-pokemon button {
+  background-color: #dc2626;
+  padding: 10px;
+  font-size: 13px;
+  max-width: 100%;
+}
+
+.lista-equipo .tarjeta-pokemon button:hover {
+  background-color: #b91c1c;
+}
+
+/* TABLETAS */
+
+@media (max-width: 700px) {
+  .lista-equipo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 420px) {
+  .lista-equipo {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ANÁLISIS DE EFECTIVIDADES */
+
+.informacion-efectividades {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000020;
+}
+
+.lista-efectividades {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.detalle-efectividad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.debilidad {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.resistencia {
+  color: #15803d;
+  font-weight: bold;
+}
+
+.inmunidad {
+  color: #2563eb;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .informacion-efectividades {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+
+  .lista-efectividades {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ESTADÍSTICAS DEL POKÉMON */
+
+.informacion-estadisticas {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #00000020;
+}
+
+.detalle-estadistica {
+  margin: 15px 0;
+}
+
+.encabezado-estadistica {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  text-transform: capitalize;
+}
+
+.barra-fondo {
+  width: 100%;
+  height: 12px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.barra-progreso {
+  height: 100%;
+  background-color: #2563eb;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+@media (max-width: 600px) {
+  .informacion-estadisticas {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+}
+
+
+/* COMPARACIÓN DE ESTADÍSTICAS */
+
+.comparacion-equipo {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.comparacion-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+}
+
+.comparacion-item img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.comparacion-item span {
+  flex: 1;
+  text-align: left;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.comparacion-item strong {
+  color: #2563eb;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .comparacion-item {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .comparacion-item img {
+    width: 48px;
+    height: 48px;
+  }
+}

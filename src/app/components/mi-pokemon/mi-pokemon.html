@@ -1,0 +1,295 @@
+
+<div class="contenedor-pokemon">
+
+  <h2>PokéTeam - Constructor de equipos</h2>
+
+  <h3>Buscar Pokémon</h3>
+
+  <form (ngSubmit)="buscarPokemon()">
+
+    <input
+      type="text"
+      name="nombre"
+      [(ngModel)]="nombre"
+      placeholder="Ejemplo: pikachu o 25"
+    >
+
+    <button type="submit" [disabled]="cargando">
+      Buscar
+    </button>
+
+  </form>
+
+  @if (cargando) {
+    <p>Buscando Pokémon...</p>
+  }
+
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  @if (pokemon) {
+
+    <div class="tarjeta-pokemon">
+
+      <h3>{{ pokemon.nombre }}</h3>
+
+      <img
+        [src]="pokemon.imagen"
+        [alt]="pokemon.nombre"
+      >
+
+      <p>ID: {{ pokemon.id }}</p>
+
+      <p>Tipos: {{ pokemon.tipos.join(', ') }}</p>
+
+      <button
+        type="button"
+        (click)="agregarAlEquipo()"
+      >
+        Agregar al equipo
+      </button>
+
+    </div>
+
+  }
+
+</div>
+
+
+<!-- EQUIPO POKÉMON -->
+
+<section class="contenedor-pokemon">
+
+  <h2>Mi equipo Pokémon</h2>
+
+  <p>Pokémon seleccionados: {{ equipo.length }} / 6</p>
+
+  @if (equipo.length === 0) {
+
+    <p>Aún no has agregado Pokémon a tu equipo.</p>
+
+  } @else {
+
+    <div class="lista-equipo">
+
+      @for (integrante of equipo; track integrante.id) {
+
+        <div class="tarjeta-pokemon">
+
+          <h3>{{ integrante.nombre }}</h3>
+
+          <img
+            [src]="integrante.imagen"
+            [alt]="integrante.nombre"
+          >
+
+          <p>ID: {{ integrante.id }}</p>
+
+          <p>Tipos: {{ integrante.tipos.join(', ') }}</p>
+
+          <button
+            type="button"
+            (click)="eliminarDelEquipo(integrante.id)"
+          >
+            Eliminar del equipo
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</section>
+
+
+<!-- COMPARACIÓN DEL EQUIPO -->
+
+@if (equipo.length >= 2) {
+
+  <section class="contenedor-pokemon">
+
+    <h2>Comparación de estadísticas del equipo</h2>
+
+    <p>
+      Comparación de las estadísticas base
+      de los Pokémon seleccionados.
+    </p>
+
+    <div class="comparacion-equipo">
+
+      @for (integrante of equipo; track integrante.id) {
+
+        <div class="comparacion-item">
+
+          <img
+            [src]="integrante.imagen"
+            [alt]="integrante.nombre"
+          >
+
+          <span>{{ integrante.nombre }}</span>
+
+          <strong>
+            {{ calcularTotalEstadisticas(integrante) }} puntos
+          </strong>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+}
+
+
+<!-- DEBILIDADES Y RESISTENCIAS -->
+
+@if (pokemon && tiposPokemon.length > 0) {
+
+  <section class="informacion-tipos">
+
+    <h3>Debilidades y resistencias</h3>
+
+    @for (tipo of tiposPokemon; track tipo.nombre) {
+
+      <div class="detalle-tipo">
+
+        <h4>Tipo: {{ tipo.nombre }}</h4>
+
+        <p>
+          <strong>Debilidades:</strong>
+          {{ tipo.debilidades.join(', ') || 'Ninguna' }}
+        </p>
+
+        <p>
+          <strong>Resistencias:</strong>
+          {{ tipo.resistencias.join(', ') || 'Ninguna' }}
+        </p>
+
+        <p>
+          <strong>Inmunidades:</strong>
+          {{ tipo.inmunidades.join(', ') || 'Ninguna' }}
+        </p>
+
+      </div>
+
+    }
+
+  </section>
+
+}
+
+
+<!-- HABILIDADES -->
+
+@if (pokemon && habilidadesPokemon.length > 0) {
+
+  <section class="informacion-habilidades">
+
+    <h3>Habilidades del Pokémon</h3>
+
+    @for (habilidad of habilidadesPokemon; track habilidad.nombre) {
+
+      <div class="detalle-habilidad">
+
+        <h4>{{ habilidad.nombre }}</h4>
+
+        <p>
+          <strong>Efecto:</strong>
+          {{ habilidad.efecto }}
+        </p>
+
+      </div>
+
+    }
+
+  </section>
+
+}
+
+
+<!-- EFECTIVIDADES COMBINADAS -->
+
+@if (pokemon && efectividades.length > 0) {
+
+  <section class="informacion-efectividades">
+
+    <h3>Análisis de debilidades combinadas</h3>
+
+    <p>
+      Multiplicadores de daño que recibe
+      <strong>{{ pokemon.nombre }}</strong>
+      según sus tipos.
+    </p>
+
+    <div class="lista-efectividades">
+
+      @for (efecto of efectividades; track efecto.tipoAtaque) {
+
+        <div class="detalle-efectividad">
+
+          <span>{{ efecto.tipoAtaque }}</span>
+
+          <strong>
+            {{ efecto.multiplicador }}x
+          </strong>
+
+          @if (efecto.multiplicador > 1) {
+            <span class="debilidad">Débil</span>
+          } @else if (efecto.multiplicador === 0) {
+            <span class="inmunidad">Inmune</span>
+          } @else if (efecto.multiplicador < 1) {
+            <span class="resistencia">Resistente</span>
+          } @else {
+            <span>Normal</span>
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+}
+
+
+<!-- ESTADÍSTICAS DEL POKÉMON -->
+
+@if (pokemon && pokemon.estadisticas.length > 0) {
+
+  <section class="informacion-estadisticas">
+
+    <h3>Estadísticas de {{ pokemon.nombre }}</h3>
+
+    @for (estadistica of pokemon.estadisticas; track estadistica.nombre) {
+
+      <div class="detalle-estadistica">
+
+        <div class="encabezado-estadistica">
+          <span>{{ estadistica.nombre }}</span>
+          <strong>{{ estadistica.valor }}</strong>
+        </div>
+
+        <div class="barra-fondo">
+
+          <div
+            class="barra-progreso"
+            [style.width.%]="(estadistica.valor / 255) * 100"
+          ></div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </section>
+
+}

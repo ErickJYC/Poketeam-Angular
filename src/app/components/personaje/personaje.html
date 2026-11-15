@@ -1,0 +1,54 @@
+
+<div class="tarjeta">
+  <h1>Tarjeta interactiva de personaje</h1>
+
+  <div class="personaje">
+    <div class="avatar">P</div>
+
+    <h2>{{ nombre }}</h2>
+
+    <div class="estadisticas">
+      <p class="energia">
+        Energía: {{ energia }} / 100
+      </p>
+
+      <div class="barra">
+        <div class="progreso" [style.width.%]="energia"></div>
+      </div>
+
+      <p class="nivel">
+        Nivel: {{ nivel }}
+      </p>
+    </div>
+
+    <p class="mensaje">{{ mensaje }}</p>
+
+    <div class="botones">
+      <button type="button"
+              class="entrenar"
+              (click)="entrenar()"
+              [disabled]="energia < 10">
+        Entrenar
+      </button>
+
+      <button type="button"
+              class="descansar"
+              (click)="descansar()"
+              [disabled]="energia === 100">
+        Descansar
+      </button>
+
+      <button type="button"
+              class="saludar"
+              (click)="saludar()">
+        Saludar
+      </button>
+
+      <button type="button"
+              class="reiniciar"
+              (click)="reiniciar()">
+        Reiniciar
+      </button>
+    </div>
+  </div>
+</div>

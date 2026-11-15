@@ -1,59 +1,101 @@
-# TarjetaPersonaje
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+# PokéTeam - Constructor de equipos Pokémon
 
-## Development server
+## Descripción
 
-To start a local development server, run:
+PokéTeam es una aplicación web desarrollada con Angular
+que permite buscar Pokémon, consultar sus características
+y construir equipos de hasta seis integrantes.
 
-```bash
-ng serve
-```
+La aplicación consume información de PokéAPI y permite
+comparar estadísticas y analizar debilidades y resistencias.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tecnologías utilizadas
 
-## Code scaffolding
+- Angular 22
+- TypeScript
+- HTML
+- CSS
+- PokéAPI
+- Git y GitHub
+- Vercel
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Funcionalidades
 
-```bash
-ng generate component component-name
-```
+- Buscar Pokémon por nombre o ID.
+- Consultar imágenes, tipos y estadísticas.
+- Mostrar habilidades y sus efectos.
+- Consultar debilidades y resistencias.
+- Calcular multiplicadores de daño combinados.
+- Crear equipos de hasta seis Pokémon.
+- Evitar Pokémon duplicados.
+- Agregar y eliminar integrantes del equipo.
+- Comparar las estadísticas base de los integrantes.
+- Mostrar mensajes de error y estados de carga.
+- Adaptar la interfaz a diferentes tamaños de pantalla.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Endpoints de PokéAPI
 
-```bash
-ng generate --help
-```
+### 1. Pokémon
 
-## Building
+https://pokeapi.co/api/v2/pokemon/
 
-To build the project run:
+Permite consultar información general, estadísticas,
+tipos y habilidades de cada Pokémon.
 
-```bash
-ng build
-```
+### 2. Type
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+https://pokeapi.co/api/v2/type/
 
-## Running unit tests
+Permite consultar las relaciones de daño de cada tipo
+para calcular debilidades, resistencias e inmunidades.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### 3. Ability
 
-```bash
-ng test
-```
+https://pokeapi.co/api/v2/ability/
 
-## Running end-to-end tests
+Permite consultar las habilidades y sus efectos.
 
-For end-to-end (e2e) testing, run:
+## Instalación y ejecución local
 
-```bash
-ng e2e
-```
+1. Clonar el repositorio:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+   git clone https://github.com/ErickJYC/Poketeam-Angular.git
 
-## Additional Resources
+2. Entrar a la carpeta:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+   cd Poketeam-Angular
+
+3. Instalar dependencias:
+
+   npm install
+
+4. Ejecutar Angular:
+
+   npm start
+
+5. Abrir en el navegador:
+
+   http://localhost:4200
+
+## Compilación de producción
+
+npm run build
+
+## Repositorio GitHub
+
+https://github.com/ErickJYC/Poketeam-Angular
+
+## Aplicación desplegada
+
+Pendiente de publicar en Vercel.
+
+## API utilizada
+
+https://pokeapi.co/
+
+## Proyecto académico
+
+Práctica 02 - Programación y Plataformas Web.
+
+Universidad Politécnica Salesiana.

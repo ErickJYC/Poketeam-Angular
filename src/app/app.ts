@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Personaje } from './components/personaje/personaje';
+import { MiPokemon } from './components/mi-pokemon/mi-pokemon';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  imports: [Personaje, MiPokemon],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('tarjeta-personaje');
