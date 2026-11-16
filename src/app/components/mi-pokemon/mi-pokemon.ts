@@ -1,5 +1,5 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Pokemon as PokemonService } from '../../services/pokemon';
 
@@ -19,6 +19,8 @@ import type {
 export class MiPokemon {
 
   private pokemonService = inject(PokemonService);
+  private cdr = inject(ChangeDetectorRef);
+
 
   nombre = '';
   pokemon: PokemonInfo | null = null;
@@ -26,7 +28,7 @@ export class MiPokemon {
   tiposPokemon: TipoPokemon[] = [];
   habilidadesPokemon: HabilidadPokemon[] = [];
   efectividades: EfectividadTipo[] = [];
-  
+
   // Equipo de Pokémon seleccionados
   equipo: PokemonInfo[] = [];
 
@@ -119,13 +121,15 @@ export class MiPokemon {
   error = '';
   cargando = false;
 
+
+
   async buscarPokemon() {
 
     this.error = '';
     this.pokemon = null;
     this.tiposPokemon = [];
-    this.efectividades = [];
     this.habilidadesPokemon = [];
+    this.efectividades = [];
 
     if (!this.nombre.trim()) {
       this.error = 'Escribe el nombre o ID de un Pokémon';
@@ -136,37 +140,63 @@ export class MiPokemon {
 
     try {
 
-      // ENDPOINT 1: Consultar Pokémon
+      // ENDPOINT 1: Buscar Pokémon
       const pokemon = await this.pokemonService.getPokemonById(
         this.nombre
       );
 
-      // ENDPOINT 2: Consultar sus tipos
-      const tipos = await Promise.all(
-        pokemon.tipos.map(
-          (tipo) => this.pokemonService.getTipoPokemon(tipo)
-        )
-      );
-
-      // ENDPOINT 3: Consultar sus habilidades
-      const habilidades = await Promise.all(
-        pokemon.habilidades.map(
-          (habilidad) =>
-            this.pokemonService.getHabilidadPokemon(habilidad)
-        )
-      );
-
+      // Mostrar inmediatamente el Pokémon
       this.pokemon = pokemon;
+
+      // Avisar a Angular que actualice la pantalla
+      this.cdr.markForCheck();
+
+      // ENDPOINTS 2 Y 3: Consultas simultáneas
+      const [tipos, habilidades] = await Promise.all([
+
+        Promise.all(
+          pokemon.tipos.map(
+            (tipo) => this.pokemonService.getTipoPokemon(tipo)
+          )
+        ),
+
+        Promise.all(
+          pokemon.habilidades.map(
+            (habilidad) =>
+              this.pokemonService.getHabilidadPokemon(habilidad)
+          )
+        )
+
+      ]);
+
+      // Guardar resultados
       this.tiposPokemon = tipos;
       this.habilidadesPokemon = habilidades;
+
+      // Calcular debilidades combinadas
       this.efectividades = this.calcularEfectividades(tipos);
 
+      // Actualizar la pantalla con la información adicional
+      this.cdr.markForCheck();
+
     } catch (error) {
-      this.error = 'No se pudo completar la consulta del Pokémon';
+
+      this.error = this.pokemon
+        ? 'No se pudo cargar toda la información adicional'
+        : 'No se pudo encontrar el Pokémon';
+
       console.error(error);
 
+      this.cdr.markForCheck();
+
     } finally {
+
       this.cargando = false;
+
+      // Actualizar el estado final de búsqueda
+      this.cdr.markForCheck();
+
     }
   }
+
 }
