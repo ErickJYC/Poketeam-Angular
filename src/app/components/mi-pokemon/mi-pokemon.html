@@ -1,4 +1,3 @@
-
 <div class="contenedor-pokemon">
 
   <h2>PokéTeam - Constructor de equipos</h2>
@@ -7,12 +6,7 @@
 
   <form (ngSubmit)="buscarPokemon()">
 
-    <input
-      type="text"
-      name="nombre"
-      [(ngModel)]="nombre"
-      placeholder="Ejemplo: pikachu o 25"
-    >
+    <input type="text" name="nombre" [(ngModel)]="nombre" placeholder="Ejemplo: pikachu o 25">
 
     <button type="submit" [disabled]="cargando">
       Buscar
@@ -20,37 +14,37 @@
 
   </form>
 
-  @if (cargando) {
-    <p>Buscando Pokémon...</p>
+
+  @if (cargando && !pokemon) {
+  <p>Buscando Pokémon...</p>
   }
 
+  @if (cargando && pokemon) {
+  <p>Cargando habilidades y debilidades...</p>
+  }
+
+
   @if (error) {
-    <p class="error">{{ error }}</p>
+  <p class="error">{{ error }}</p>
   }
 
   @if (pokemon) {
 
-    <div class="tarjeta-pokemon">
+  <div class="tarjeta-pokemon">
 
-      <h3>{{ pokemon.nombre }}</h3>
+    <h3>{{ pokemon.nombre }}</h3>
 
-      <img
-        [src]="pokemon.imagen"
-        [alt]="pokemon.nombre"
-      >
+    <img [src]="pokemon.imagen" [alt]="pokemon.nombre">
 
-      <p>ID: {{ pokemon.id }}</p>
+    <p>ID: {{ pokemon.id }}</p>
 
-      <p>Tipos: {{ pokemon.tipos.join(', ') }}</p>
+    <p>Tipos: {{ pokemon.tipos.join(', ') }}</p>
 
-      <button
-        type="button"
-        (click)="agregarAlEquipo()"
-      >
-        Agregar al equipo
-      </button>
+    <button type="button" (click)="agregarAlEquipo()">
+      Agregar al equipo
+    </button>
 
-    </div>
+  </div>
 
   }
 
@@ -67,39 +61,33 @@
 
   @if (equipo.length === 0) {
 
-    <p>Aún no has agregado Pokémon a tu equipo.</p>
+  <p>Aún no has agregado Pokémon a tu equipo.</p>
 
   } @else {
 
-    <div class="lista-equipo">
+  <div class="lista-equipo">
 
-      @for (integrante of equipo; track integrante.id) {
+    @for (integrante of equipo; track integrante.id) {
 
-        <div class="tarjeta-pokemon">
+    <div class="tarjeta-pokemon">
 
-          <h3>{{ integrante.nombre }}</h3>
+      <h3>{{ integrante.nombre }}</h3>
 
-          <img
-            [src]="integrante.imagen"
-            [alt]="integrante.nombre"
-          >
+      <img [src]="integrante.imagen" [alt]="integrante.nombre">
 
-          <p>ID: {{ integrante.id }}</p>
+      <p>ID: {{ integrante.id }}</p>
 
-          <p>Tipos: {{ integrante.tipos.join(', ') }}</p>
+      <p>Tipos: {{ integrante.tipos.join(', ') }}</p>
 
-          <button
-            type="button"
-            (click)="eliminarDelEquipo(integrante.id)"
-          >
-            Eliminar del equipo
-          </button>
-
-        </div>
-
-      }
+      <button type="button" (click)="eliminarDelEquipo(integrante.id)">
+        Eliminar del equipo
+      </button>
 
     </div>
+
+    }
+
+  </div>
 
   }
 
@@ -110,39 +98,36 @@
 
 @if (equipo.length >= 2) {
 
-  <section class="contenedor-pokemon">
+<section class="contenedor-pokemon">
 
-    <h2>Comparación de estadísticas del equipo</h2>
+  <h2>Comparación de estadísticas del equipo</h2>
 
-    <p>
-      Comparación de las estadísticas base
-      de los Pokémon seleccionados.
-    </p>
+  <p>
+    Comparación de las estadísticas base
+    de los Pokémon seleccionados.
+  </p>
 
-    <div class="comparacion-equipo">
+  <div class="comparacion-equipo">
 
-      @for (integrante of equipo; track integrante.id) {
+    @for (integrante of equipo; track integrante.id) {
 
-        <div class="comparacion-item">
+    <div class="comparacion-item">
 
-          <img
-            [src]="integrante.imagen"
-            [alt]="integrante.nombre"
-          >
+      <img [src]="integrante.imagen" [alt]="integrante.nombre">
 
-          <span>{{ integrante.nombre }}</span>
+      <span>{{ integrante.nombre }}</span>
 
-          <strong>
-            {{ calcularTotalEstadisticas(integrante) }} puntos
-          </strong>
-
-        </div>
-
-      }
+      <strong>
+        {{ calcularTotalEstadisticas(integrante) }} puntos
+      </strong>
 
     </div>
 
-  </section>
+    }
+
+  </div>
+
+</section>
 
 }
 
@@ -151,36 +136,36 @@
 
 @if (pokemon && tiposPokemon.length > 0) {
 
-  <section class="informacion-tipos">
+<section class="informacion-tipos">
 
-    <h3>Debilidades y resistencias</h3>
+  <h3>Debilidades y resistencias</h3>
 
-    @for (tipo of tiposPokemon; track tipo.nombre) {
+  @for (tipo of tiposPokemon; track tipo.nombre) {
 
-      <div class="detalle-tipo">
+  <div class="detalle-tipo">
 
-        <h4>Tipo: {{ tipo.nombre }}</h4>
+    <h4>Tipo: {{ tipo.nombre }}</h4>
 
-        <p>
-          <strong>Debilidades:</strong>
-          {{ tipo.debilidades.join(', ') || 'Ninguna' }}
-        </p>
+    <p>
+      <strong>Debilidades:</strong>
+      {{ tipo.debilidades.join(', ') || 'Ninguna' }}
+    </p>
 
-        <p>
-          <strong>Resistencias:</strong>
-          {{ tipo.resistencias.join(', ') || 'Ninguna' }}
-        </p>
+    <p>
+      <strong>Resistencias:</strong>
+      {{ tipo.resistencias.join(', ') || 'Ninguna' }}
+    </p>
 
-        <p>
-          <strong>Inmunidades:</strong>
-          {{ tipo.inmunidades.join(', ') || 'Ninguna' }}
-        </p>
+    <p>
+      <strong>Inmunidades:</strong>
+      {{ tipo.inmunidades.join(', ') || 'Ninguna' }}
+    </p>
 
-      </div>
+  </div>
 
-    }
+  }
 
-  </section>
+</section>
 
 }
 
@@ -189,26 +174,26 @@
 
 @if (pokemon && habilidadesPokemon.length > 0) {
 
-  <section class="informacion-habilidades">
+<section class="informacion-habilidades">
 
-    <h3>Habilidades del Pokémon</h3>
+  <h3>Habilidades del Pokémon</h3>
 
-    @for (habilidad of habilidadesPokemon; track habilidad.nombre) {
+  @for (habilidad of habilidadesPokemon; track habilidad.nombre) {
 
-      <div class="detalle-habilidad">
+  <div class="detalle-habilidad">
 
-        <h4>{{ habilidad.nombre }}</h4>
+    <h4>{{ habilidad.nombre }}</h4>
 
-        <p>
-          <strong>Efecto:</strong>
-          {{ habilidad.efecto }}
-        </p>
+    <p>
+      <strong>Efecto:</strong>
+      {{ habilidad.efecto }}
+    </p>
 
-      </div>
+  </div>
 
-    }
+  }
 
-  </section>
+</section>
 
 }
 
@@ -217,45 +202,44 @@
 
 @if (pokemon && efectividades.length > 0) {
 
-  <section class="informacion-efectividades">
+<section class="informacion-efectividades">
 
-    <h3>Análisis de debilidades combinadas</h3>
+  <h3>Análisis de debilidades combinadas</h3>
 
-    <p>
-      Multiplicadores de daño que recibe
-      <strong>{{ pokemon.nombre }}</strong>
-      según sus tipos.
-    </p>
+  <p>
+    Multiplicadores de daño que recibe
+    <strong>{{ pokemon.nombre }}</strong>
+    según sus tipos.
+  </p>
 
-    <div class="lista-efectividades">
+  <div class="lista-efectividades">
 
-      @for (efecto of efectividades; track efecto.tipoAtaque) {
+    @for (efecto of efectividades; track efecto.tipoAtaque) {
 
-        <div class="detalle-efectividad">
+    <div class="detalle-efectividad">
 
-          <span>{{ efecto.tipoAtaque }}</span>
+      <span>{{ efecto.tipoAtaque }}</span>
 
-          <strong>
-            {{ efecto.multiplicador }}x
-          </strong>
+      <strong>
+        {{ efecto.multiplicador }}x
+      </strong>
 
-          @if (efecto.multiplicador > 1) {
-            <span class="debilidad">Débil</span>
-          } @else if (efecto.multiplicador === 0) {
-            <span class="inmunidad">Inmune</span>
-          } @else if (efecto.multiplicador < 1) {
-            <span class="resistencia">Resistente</span>
-          } @else {
-            <span>Normal</span>
-          }
-
-        </div>
-
-      }
+      @if (efecto.multiplicador > 1) {
+      <span class="debilidad">Débil</span>
+      } @else if (efecto.multiplicador === 0) {
+      <span class="inmunidad">Inmune</span>
+      } @else if (efecto.multiplicador < 1) { <span class="resistencia">Resistente</span>
+        } @else {
+        <span>Normal</span>
+        }
 
     </div>
 
-  </section>
+    }
+
+  </div>
+
+</section>
 
 }
 
@@ -264,32 +248,29 @@
 
 @if (pokemon && pokemon.estadisticas.length > 0) {
 
-  <section class="informacion-estadisticas">
+<section class="informacion-estadisticas">
 
-    <h3>Estadísticas de {{ pokemon.nombre }}</h3>
+  <h3>Estadísticas de {{ pokemon.nombre }}</h3>
 
-    @for (estadistica of pokemon.estadisticas; track estadistica.nombre) {
+  @for (estadistica of pokemon.estadisticas; track estadistica.nombre) {
 
-      <div class="detalle-estadistica">
+  <div class="detalle-estadistica">
 
-        <div class="encabezado-estadistica">
-          <span>{{ estadistica.nombre }}</span>
-          <strong>{{ estadistica.valor }}</strong>
-        </div>
+    <div class="encabezado-estadistica">
+      <span>{{ estadistica.nombre }}</span>
+      <strong>{{ estadistica.valor }}</strong>
+    </div>
 
-        <div class="barra-fondo">
+    <div class="barra-fondo">
 
-          <div
-            class="barra-progreso"
-            [style.width.%]="(estadistica.valor / 255) * 100"
-          ></div>
+      <div class="barra-progreso" [style.width.%]="(estadistica.valor / 255) * 100"></div>
 
-        </div>
+    </div>
 
-      </div>
+  </div>
 
-    }
+  }
 
-  </section>
+</section>
 
 }
